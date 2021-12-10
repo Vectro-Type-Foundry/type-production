@@ -58,15 +58,16 @@ def main(argv):
 
         tt = ttLib.TTFont(font_path)
         namerecord_list = tt["name"].names
-
-        style = ""
+        style = "Regular"
 
         # determine font style for this file path from name record nameID 2
         for record in namerecord_list:
-            if record.nameID == 2:
+            # print(record, record.nameID)
+            if record.nameID == 17:
                 style = str(record)
                 break
 
+        print("style is:", style)
         # test that a style name was found in the OpenType tables of the font
         if len(style) == 0:
             sys.stderr.write(
@@ -74,6 +75,8 @@ def main(argv):
             )
             sys.stderr.write("Unable to complete execution of the script.")
             sys.exit(1)
+            # print("Warning: no Style found!!!!!!!! Using Regular as style name")
+
         else:
             # used for the Postscript name in the name table (no spaces allowed)
             postscript_font_name = font_name.replace(" ", "")

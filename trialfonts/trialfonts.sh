@@ -14,7 +14,7 @@ SOURCE_DIRECTORY=$2
 OUTPUT_SUBDIRECTORY_NAME='trial-exports'
 
 echo $FONT_TRIAL_NAME
-echo $SOURCE_DIRECTORY
+# echo $SOURCE_DIRECTORY
 
 
 if [ -z "$3" ]
@@ -24,25 +24,30 @@ else
 	OUTPUT_DIRECTORY=$3	
 fi
 
-echo $OUTPUT_DIRECTORY
+# echo $OUTPUT_DIRECTORY
 
 FAMILY_NAME_SUFFIX='Trial'
 
 mkdir -p $OUTPUT_DIRECTORY
 
 function subsetFonts {
+	echo "Subset Fonts"
 	FORMAT=$1
+	
 	for FILE in $SOURCE_DIRECTORY/*.$FORMAT; do
+		
 		if test -f "$FILE"; then
+		echo $FILE
 			FONT=${FILE##*/}
 			TYPE=${FONT##*.}
 			NAME=${FONT%.*}
-			pyftsubset $FILE --unicodes-file=subsetAllowedInTrial.txt --layout-features-='kern' --glyph-names --symbol-cmap --legacy-cmap --notdef-glyph --notdef-outline --recommended-glyphs --name-IDs='*' --name-legacy --name-languages='*' --recalc-bounds --output-file=$OUTPUT_DIRECTORY/$NAME.$TYPE
+			pyftsubset $FILE --unicodes-file=subsetAllowedInTrial.txt --layout-features-='kern' --glyph-names --symbol-cmap --legacy-cmap --notdef-glyph --notdef-outline --recommended-glyphs --name-IDs='*' --name-legacy --name-languages='*' --recalc-bounds --ignore-missing-glyphs --output-file=$OUTPUT_DIRECTORY/$NAME.$TYPE
 			echo Subset ${FONT}
 		fi
 	done
 }
 function renameFonts {
+	echo "Rename Fonts"
 	FORMAT=$1
 	for FILE in $OUTPUT_DIRECTORY/*.$FORMAT; do
 		if test -f "$FILE"; then
