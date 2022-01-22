@@ -59,8 +59,25 @@ function renameFonts {
 	done
 }
 
-subsetFonts 'otf'
-subsetFonts 'ttf'
+function copyFonts {
+	echo "Copy and Move Fonts"
+	FORMAT=$1
+	
+	for FILE in $SOURCE_DIRECTORY/*.$FORMAT; do
+		
+		if test -f "$FILE"; then
+		echo $FILE
+		FILENAME="$(basename $FILE)"
+			cp $FILE $OUTPUT_DIRECTORY/$FILENAME
+		fi
+	done
+}
+
+# subsetFonts 'otf'
+# subsetFonts 'ttf'
+
+copyFonts 'otf'
+copyFonts 'ttf'
 
 renameFonts 'otf'
 renameFonts 'ttf'
