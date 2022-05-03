@@ -2,3 +2,4 @@
 venv
 *.otf
 *.ttf
+check-fonts/output/*.json
