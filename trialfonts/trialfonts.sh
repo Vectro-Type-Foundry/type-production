@@ -62,7 +62,6 @@ function renameFonts {
 function copyFonts {
 	echo "Copy and Move Fonts"
 	FORMAT=$1
-	
 	for FILE in $SOURCE_DIRECTORY/*.$FORMAT; do
 		
 		if test -f "$FILE"; then

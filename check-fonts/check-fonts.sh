@@ -13,6 +13,7 @@ function runFontBakeryCheck {
     then
       filename=`basename $fileFullPath`
       echo $filename
+      # check-googlefonts
       fontbakery check-typenetwork $fileFullPath  --json "${outputPath}fontbakery-report-${filename}.json"
     fi
   done
